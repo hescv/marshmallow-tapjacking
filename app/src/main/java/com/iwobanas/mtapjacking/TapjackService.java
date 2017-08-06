@@ -1,24 +1,26 @@
-package com.iwobanas.mtapjacking.service;
+package com.iwobanas.mtapjacking;
 
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
-public class OverlayService extends Service {
+public class TapjackService extends Service {
 
     private View mOverlay;
 
-    public OverlayService() {
+    public TapjackService() {
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.i("FEFEFE", "sure bruh");
         if ("SHOW".equals(intent.getAction())) {
             showOverlay();
         } else {
@@ -45,8 +47,7 @@ public class OverlayService extends Service {
         layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
         layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         layoutParams.x = 0;
-        //layoutParams.y = dipToPx(-46);
-        layoutParams.y = dipToPx(-32);
+        layoutParams.y = dipToPx(-46);
         layoutParams.gravity = Gravity.CENTER;
         layoutParams.windowAnimations = 0;
 

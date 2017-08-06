@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -23,6 +24,7 @@ public class MainActivity extends Activity {
         startOverlayService("WORM_UP");
 
         Button button = (Button) findViewById(R.id.button);
+        Button button1 = (Button) findViewById(R.id.button2);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,6 +32,13 @@ public class MainActivity extends Activity {
                 requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISSIONS_REQUEST_CODE);
             }
         });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "Transaction Success!", Toast.LENGTH_LONG).show();
+            }
+        });
+
     }
 
     @Override
@@ -47,6 +56,7 @@ public class MainActivity extends Activity {
     private void startOverlayService(String action) {
         Intent intent = new Intent(action);
         intent.setClassName("com.iwobanas.mtapjacking.service", "com.iwobanas.mtapjacking.service.OverlayService");
+        //intent.setClassName("com.iwobanas.mtapjacking", "com.iwobanas.mtapjacking.TapjackService");
         startService(intent);
     }
 
