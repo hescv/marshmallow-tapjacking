@@ -78,8 +78,10 @@ public class MainActivity extends Activity {
     }
 
     private void insecurePendingIntent() {
-        Intent intent = new Intent(ACTION_VIEW, Uri.parse("http://www.mybank.com/token/193avcAj3"));
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 1, intent, 0);
+        Intent intent = new Intent("ACTION_FOR_MY_APP", Uri.parse("INFORM_TODO: Transfer money to user: ECE458_demo"));
+        intent.setType("text/plain");
+        intent.putExtra("Amount", "1000CAD");
+        PendingIntent pendingIntent = PendingIntent.getActivity(this.getApplicationContext(), 1, intent, 0);
         // call the pendingintent in two seconds
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 2000, pendingIntent);
