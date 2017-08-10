@@ -44,7 +44,7 @@ public class MainActivity extends Activity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Transaction Success!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Transaction Success!", Toast.LENGTH_SHORT).show();
             }
         });
         button3.setOnClickListener(new View.OnClickListener() {
