@@ -17,10 +17,22 @@
         android:text="Test" />
 
     <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Pending Intent" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Test Intent" />
+
+    <Button
         android:id="@+id/button2"
         android:layout_width="150dip"
         android:layout_height="150dip"
-        android:layout_marginTop="230dip"
+        android:layout_marginTop="120dip"
         android:layout_marginLeft="75dip"
         android:text="Transfer Money?" />
 

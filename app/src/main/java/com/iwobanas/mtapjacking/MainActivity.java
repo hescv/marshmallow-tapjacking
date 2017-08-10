@@ -2,13 +2,20 @@ package com.iwobanas.mtapjacking;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import static android.content.Intent.ACTION_SENDTO;
+import static android.content.Intent.ACTION_VIEW;
 
 public class MainActivity extends Activity {
 
@@ -25,6 +32,8 @@ public class MainActivity extends Activity {
 
         Button button = (Button) findViewById(R.id.button);
         Button button1 = (Button) findViewById(R.id.button2);
+        Button button3 = (Button) findViewById(R.id.button3);
+        Button button4 = (Button) findViewById(R.id.button4);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,6 +45,21 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "Transaction Success!", Toast.LENGTH_LONG).show();
+            }
+        });
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Note: if we inline the methods below. QARK wont find the pending intent exploit.
+                insecurePendingIntent();
+            }
+        });
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Note: it seems that QARK is not finding this as an exploit. Probably sth wrong
+                //      in findBroadcast.py
+                insecureBroadcast();
             }
         });
 
@@ -51,6 +75,23 @@ public class MainActivity extends Activity {
                 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             showContacts();
         }
+    }
+
+    private void insecurePendingIntent() {
+        Intent intent = new Intent(ACTION_VIEW, Uri.parse("http://www.mybank.com/token/193avcAj3"));
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getApplicationContext(), 1, intent, 0);
+        // call the pendingintent in two seconds
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 2000, pendingIntent);
+    }
+
+    private void insecureBroadcast() {
+        Uri uri = Uri.parse("https://mybank.com/login?user=ece458&password=123321");
+        Intent intentBrod = new Intent(ACTION_VIEW, uri);
+        //intentBrod.setAction("com.bankapp.ShowCCInfo");
+        intentBrod.putExtra("CreditCard", "517517517517517");
+        //sendBroadcast(intentBrod);
+        startActivity(intentBrod);
     }
 
     private void startOverlayService(String action) {

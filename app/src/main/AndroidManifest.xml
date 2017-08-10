@@ -13,17 +13,28 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="com.iwobanas.mtapjacking.TEST" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <service
             android:name=".TapjackService"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
+
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
